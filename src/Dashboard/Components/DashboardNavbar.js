@@ -6,6 +6,10 @@ import SearchIcon from '@mui/icons-material/Search';
 import { Bell as BellIcon } from '../../icons/bell';
 import { UserCircle as UserCircleIcon } from '../../icons/user-circle';
 import { Users as UsersIcon } from '../../icons/users';
+import { userLogoutAction } from '../../redux/actions';
+import { useDispatch } from 'react-redux';
+import { getAccessToken } from '../../utils/accessTokenUtil';
+import { useNavigate } from 'react-router';
 
 
 const DashboardNavbarRoot = styled(AppBar)(() => ({
@@ -15,7 +19,15 @@ const DashboardNavbarRoot = styled(AppBar)(() => ({
 
 export const DashboardNavbar = (props) => {
   const { onSidebarOpen, ...other } = props;
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
+  const handleLogOut = () => {
+    dispatch(userLogoutAction());
+    if(!getAccessToken()){
+      navigate('/login');
+    }
+  }
   return (
     <>
       <DashboardNavbarRoot
@@ -77,7 +89,7 @@ export const DashboardNavbar = (props) => {
             }}
             src="/static/images/avatars/avatar_1.png"
           >
-            <UserCircleIcon fontSize="small" />
+            <UserCircleIcon fontSize="small" onClick={handleLogOut} />
           </Avatar>
         </Toolbar>
       </DashboardNavbarRoot>

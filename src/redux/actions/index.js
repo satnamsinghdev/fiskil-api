@@ -1,4 +1,4 @@
-import { userLoginHelper, getAccountsHelper, createEndUser, getEndUsers, delEndUser } from "../../apiHelper";
+import { userLoginHelper, getAccountsHelper, createEndUser, getEndUsers, delEndUser, getInstitutionsHelper, getPermissionsHelper } from "../../apiHelper";
 import { decodeToken, getAccessToken } from "../../utils/accessTokenUtil";
 
 const userLoginAction = (data) => {
@@ -20,11 +20,17 @@ const userLoginAction = (data) => {
     }
   }
 
+const userLogoutAction = () => {
+  return { type: 'USER_LOGOUT_ACTION'}
+}
+
 const getAccountsAction = (end_user_id) => {
+  
   return async (dispatch) => {
     dispatch({type: "GET_ACCOUNTS_REQUEST"});
     try {
       const res = await getAccountsHelper(end_user_id);
+      console.log('response',res)
       dispatch({type: 'GET_ACCOUNTS_SUCCESS', payload: res.data});
     } catch (e) {
       dispatch({type: 'GET_ACCOUNTS_FAILURE', payload: e.message});
@@ -79,4 +85,31 @@ const deleteEndUserAction = (data) => {
   }
 }
 
-  export { userLoginAction, getAccountsAction, createEndUserAction, getEndUserAction, deleteEndUserAction }
+const getInstitutionsAction = () => {
+  return async (dispatch) => {
+    dispatch({type: "GET_INSTITUTIONS_REQUEST"});
+    try {
+      const res = await getInstitutionsHelper();
+      console.log("res", res)
+      dispatch({type: 'GET_INSTITUTIONS_SUCCESS', payload: res.data});
+    } catch (e) {
+      dispatch({type: 'GET_INSTITUTIONS_FAILURE', payload: e.message});
+    }
+  }
+}
+
+const getPermissionsAction = () => {
+  return async (dispatch) => {
+    dispatch({type: "GET_PERMISSIONS_REQUEST"});
+    try {
+      const res = await getPermissionsHelper();
+      console.log("res", res)
+      dispatch({type: 'GET_PERMISSIONS_SUCCESS', payload: res.data});
+    } catch (e) {
+      dispatch({type: 'GET_PERMISSIONS_FAILURE', payload: e.message});
+    }
+  }
+}
+
+
+  export { userLoginAction,userLogoutAction, getAccountsAction, createEndUserAction, getEndUserAction, deleteEndUserAction, getInstitutionsAction, getPermissionsAction }

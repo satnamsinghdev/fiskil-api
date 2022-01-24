@@ -65,8 +65,8 @@ export const delEndUser = async(id,token) => {
 }
 
 export const getAccountsHelper = async(end_user_id) => {
+    console.log(end_user_id,'end_user_id')
     try{
-
           let config = {
             headers: {
             'Accept' : 'application/json; charset=UTF-8',
@@ -77,9 +77,45 @@ export const getAccountsHelper = async(end_user_id) => {
             params: { end_user_id:end_user_id}
           }
         const response = await axios.get('https://sandbox.fiskil.com/v1/banking/accounts/',config);
+        console.log("resss", response);
         return response;
     }catch(e){
+
+
+        console.log("e",e)
         return e;
     }
 
+}
+
+export const getInstitutionsHelper = async() => {
+    try{
+
+          let config = {
+            headers: {
+            'Accept' : 'application/json; charset=UTF-8',
+            'Content-Type' : 'application/json; charset=UTF-8',
+          }
+        }
+        const response = await axios.get('https://sandbox.fiskil.com/v1/institutions',config);
+        return response.data;
+    }catch(e){
+        return e;
+    }
+}
+
+export const getPermissionsHelper = async() => {
+    try{
+
+          let config = {
+            headers: {
+            'Accept' : 'application/json; charset=UTF-8',
+            'Content-Type' : 'application/json; charset=UTF-8',
+          }
+        }
+        const response = await axios.get('https://sandbox.fiskil.com/v1/permissions',config);
+        return response.data;
+    }catch(e){
+        return e;
+    }
 }

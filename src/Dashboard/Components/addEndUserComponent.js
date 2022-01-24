@@ -93,19 +93,16 @@ import { getEndUserAction } from '../../redux/actions';
                     onBlur={formik.handleBlur}
                     onChange={formik.handleChange}
                     type="input"
-                    value={endUsersAction.success ?'':''}
+                    value={formik.values.email}
                     variant="outlined"
-                />
-
-
-            
+                />            
             </Box>
             <Box sx={{ m: 1 }}>
               <Button
-              color="primary"
-            variant="contained"
-            type="submit"
-          >
+              // color="primary"
+              variant="contained"
+              type="submit"
+              >
             Add User
             </Button>
           </Box>

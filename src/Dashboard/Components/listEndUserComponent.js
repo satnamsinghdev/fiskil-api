@@ -15,11 +15,13 @@ import {
   TablePagination,
   TableRow,
   Button,
-  Typography
+  Typography,
+  CardHeader
 } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { getEndUserAction, deleteEndUserAction } from '../../redux/actions';
 import DeleteIcon from '@mui/icons-material/Delete';
+import ClickToCopy from '../snippets/clickToCopy';
 
 export const EndUserListComponent = ({...rest }) => {
   const dispatch = useDispatch();
@@ -61,25 +63,20 @@ export const EndUserListComponent = ({...rest }) => {
             </TableHead>
             <TableBody>
               {endUsers.slice(0, limit).map((user,key) => (
-                <TableRow
-                  hover
-                  key={key}
-                >
-                  <TableCell>
-                    {user.email}
-                  </TableCell>
-                  <TableCell>
-                    {user.end_user_id}
-                  </TableCell>
+                <TableRow hover key={key}>
+                  <TableCell>{user.email}</TableCell>
+                  <TableCell>{user.end_user_id}</TableCell>
                   <TableCell>
                       <DeleteIcon onClick={() => handleDelete(user.end_user_id)} />
+                  </TableCell>
+                  <TableCell>
+                    <ClickToCopy user={user} />
                   </TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
-        </Box>
-      {/* </PerfectScrollbar> */}
+        </Box>       
       <TablePagination
         component="div"
         count={endUsers.length}

@@ -1,10 +1,10 @@
-const initialState = { accounts: [], isLoading: false, error: null}
+const initialState = { accounts: [], isLoading: false, error: null,message:''}
 export function getAllAccountsReducer(state=initialState, action) {
     switch(action.type) {
         case "GET_ACCOUNTS_REQUEST" :
             return {...state, isLoading: true}
         case "GET_ACCOUNTS_SUCCESS" : 
-            return {isLoading: false, accounts: action.payload, error: null}
+            return {isLoading: false, accounts: action.payload.data, error: null,message:action.payload.message}
         case "GET_ACCOUNTS_FAILURE" :
             return {isLoading: false, accounts: [], error: action.payload}
         default:
